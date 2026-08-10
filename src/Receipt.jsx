@@ -51,7 +51,7 @@ const Receipt = forwardRef(function Receipt(
             <img src={logo} alt="Associate logo" className="h-full w-full object-contain" />
           </div>
           <div>
-            <div className="text-lg font-extrabold leading-tight">{company}</div>
+            <div className="text-2xl font-extrabold leading-tight">{company}</div>
             <div className="text-xs font-semibold uppercase tracking-widest text-white/75">Payment Receipt</div>
           </div>
         </div>

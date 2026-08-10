@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { toBlob } from 'html-to-image'
 import Receipt from './Receipt.jsx'
 
-const buttonClasses = 'rounded-xl border border-neutral-300 bg-neutral-100 px-4 py-3.5 text-base font-semibold text-neutral-900 disabled:cursor-default disabled:opacity-60'
+const buttonClasses = 'flex-1 rounded-xl bg-blue-500 px-4 py-3.5 text-base font-semibold text-white active:brightness-90 disabled:cursor-default disabled:opacity-60'
 
 function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob)
@@ -27,7 +27,7 @@ export default function ReceiptPreview({ data }) {
     setMessage('')
     try {
       const blob = await generateBlob()
-      const file = new File([blob], `receipt-${data.date}.png`, { type: 'image/png' })
+      const file = new File([blob], `Receipt-${data.date}.png`, { type: 'image/png' })
       const canShareFile = navigator.canShare && navigator.canShare({ files: [file] })
 
       if (canShareFile) {
@@ -54,7 +54,7 @@ export default function ReceiptPreview({ data }) {
     setMessage('')
     try {
       const blob = await generateBlob()
-      downloadBlob(blob, `receipt-${data.date}.png`)
+      downloadBlob(blob, `Receipt-${data.date}.png`)
     } catch (error) {
       setMessage('Could not generate the receipt image.')
     } finally {
@@ -74,17 +74,12 @@ export default function ReceiptPreview({ data }) {
         </p>
       )}
 
-      <div className="flex flex-col gap-3">
-        <button
-          type="button"
-          className={`${buttonClasses} border-blue-500 bg-blue-500 text-white`}
-          onClick={handleShare}
-          disabled={busy}
-        >
-          {busy ? 'Preparing…' : 'Share'}
-        </button>
+      <div className="flex flex-row gap-3">
         <button type="button" className={buttonClasses} onClick={handleDownload} disabled={busy}>
           Download image
+        </button>
+        <button type="button" className={buttonClasses} onClick={handleShare} disabled={busy}>
+          {busy ? 'Preparing…' : 'Share'}
         </button>
       </div>
     </div>
