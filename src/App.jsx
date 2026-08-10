@@ -1,9 +1,8 @@
 import ReceiptForm from './ReceiptForm.jsx'
-import './App.css'
 
 function App() {
   return (
-    <div className="page">
+    <div className="w-full">
       <ReceiptForm />
     </div>
   )

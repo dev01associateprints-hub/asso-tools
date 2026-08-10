@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
 import { toBlob } from 'html-to-image'
 import Receipt from './Receipt.jsx'
-import './ReceiptPreview.css'
+
+const buttonClasses = 'rounded-xl border border-neutral-300 bg-neutral-100 px-4 py-3.5 text-base font-semibold text-neutral-900 disabled:cursor-default disabled:opacity-60'
 
 function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob)
@@ -12,7 +13,7 @@ function downloadBlob(blob, filename) {
   URL.revokeObjectURL(url)
 }
 
-export default function ReceiptPreview({ data, onEdit }) {
+export default function ReceiptPreview({ data }) {
   const receiptRef = useRef(null)
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState('')
@@ -62,20 +63,28 @@ export default function ReceiptPreview({ data, onEdit }) {
   }
 
   return (
-    <div className="receipt-preview">
+    <div className="flex flex-col gap-5 border-t border-neutral-200 pt-6">
+      <p className="text-sm font-semibold text-neutral-700">Preview</p>
+
       <Receipt ref={receiptRef} {...data} />
 
-      {message && <p className="receipt-preview-message">{message}</p>}
+      {message && (
+        <p className="rounded-xl border border-neutral-300 bg-neutral-100 px-4 py-3 text-sm text-neutral-900">
+          {message}
+        </p>
+      )}
 
-      <div className="receipt-preview-actions">
-        <button type="button" className="preview-button preview-button-primary" onClick={handleShare} disabled={busy}>
+      <div className="flex flex-col gap-3">
+        <button
+          type="button"
+          className={`${buttonClasses} border-blue-500 bg-blue-500 text-white`}
+          onClick={handleShare}
+          disabled={busy}
+        >
           {busy ? 'Preparing…' : 'Share'}
         </button>
-        <button type="button" className="preview-button" onClick={handleDownload} disabled={busy}>
+        <button type="button" className={buttonClasses} onClick={handleDownload} disabled={busy}>
           Download image
-        </button>
-        <button type="button" className="preview-button preview-button-text" onClick={onEdit} disabled={busy}>
-          Edit details
         </button>
       </div>
     </div>
