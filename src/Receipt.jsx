@@ -52,7 +52,12 @@ const Receipt = forwardRef(function Receipt(
           </div>
           <div>
             <div className="text-2xl font-extrabold leading-tight">{company}</div>
-            <div className="text-xs font-semibold uppercase tracking-widest text-white/75">Payment Receipt</div>
+            <div className="mt-0.5 text-xs leading-snug text-white/80">
+              4/1299-A, Rice Mill Street
+              <br />
+              Samipuram Colony, Sivakasi - 626123
+            </div>
+            <div className="mt-1 text-xs font-semibold uppercase tracking-widest text-white/75">Payment Receipt</div>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ const COMPANIES = ['Associate Prints', 'Associate Colour Galaxy']
 const PAYMENT_METHODS = ['Cash', 'Cheque', 'RTGS', 'NEFT', 'Google Pay', 'UPI']
 
 const inputClasses =
-  'w-full rounded-xl border border-neutral-300 bg-neutral-100 px-4 py-3 text-base text-neutral-900 transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/15'
+  'w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/15'
 const labelClasses = 'text-sm font-semibold text-neutral-700'
 const selectChevron =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5.5 7.5l4.5 4.5 4.5-4.5' stroke='%236b6b70' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")"
@@ -53,7 +53,7 @@ export default function ReceiptForm() {
               <label
                 key={name}
                 className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-base text-neutral-900 ${
-                  company === name ? 'border-blue-500 bg-blue-50' : 'border-neutral-300 bg-neutral-100'
+                  company === name ? 'border-blue-500 bg-blue-50' : 'border-neutral-300 bg-white'
                 }`}
               >
                 <input
@@ -90,12 +90,14 @@ export default function ReceiptForm() {
             <input
               id="amount"
               className={`${inputClasses} pl-8`}
-              type="number"
+              type="text"
               inputMode="decimal"
-              min="0"
-              step="0.01"
+              pattern="[0-9]*\.?[0-9]*"
               value={amount}
-              onChange={(event) => setAmount(event.target.value)}
+              onChange={(event) => {
+                const value = event.target.value
+                if (/^\d*\.?\d*$/.test(value)) setAmount(value)
+              }}
               required
             />
           </div>
