@@ -1,6 +1,17 @@
 import { forwardRef } from 'react'
 import logo from './assets/logo.png'
 
+const COMPANY_DETAILS = {
+  'Associate Prints': {
+    addressLines: ['1370, PKN Road', 'Sivakasi - 626 189'],
+    gstin: '33AARFA7102N1ZA',
+  },
+  'Associate Colour Galaxy': {
+    addressLines: ['2/2185/92, Srinivasa Nagar', 'Viswanatham, Sivakasi - 626 123'],
+    gstin: '33ABKFA5461G1ZK',
+  },
+}
+
 const METHOD_STYLES = {
   Cash: 'bg-emerald-100 text-emerald-700',
   Cheque: 'bg-amber-100 text-amber-700',
@@ -36,6 +47,7 @@ const Receipt = forwardRef(function Receipt(
   ref,
 ) {
   const hasChequeDetails = receivedBy === 'Cheque' && (chequeNumber || chequeDate || chequeBank)
+  const details = COMPANY_DETAILS[company]
 
   return (
     <div
@@ -52,11 +64,14 @@ const Receipt = forwardRef(function Receipt(
           </div>
           <div>
             <div className="text-2xl font-extrabold leading-tight">{company}</div>
-            <div className="mt-0.5 text-xs leading-snug text-white/80">
-              4/1299-A, Rice Mill Street
-              <br />
-              Samipuram Colony, Sivakasi - 626123
-            </div>
+            {details && (
+              <div className="mt-0.5 text-xs leading-snug text-white/80">
+                {details.addressLines.map((line, index) => (
+                  <div key={index}>{line}</div>
+                ))}
+                <div className="mt-0.5">GSTIN: {details.gstin}</div>
+              </div>
+            )}
             <div className="mt-1 text-xs font-semibold uppercase tracking-widest text-white/75">Payment Receipt</div>
           </div>
         </div>
